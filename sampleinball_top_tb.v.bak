@@ -1,0 +1,78 @@
+//testbench
+`include "sampleinball_top.v"
+`timescale 1ns / 1ps
+module sampleinball_top_tb;
+    parameter N = 256;
+    parameter TAU = 60;
+    parameter DATA_WIDTH = 24;
+    parameter Q = 8380417;
+
+    reg clk = 0;
+    reg rst_n = 0;
+    reg start = 0;
+
+    wire done;
+    wire [5:0] i;  // TAU=60 fits in 6 bits
+
+    integer zero_count;
+    reg [DATA_WIDTH-1:0] coeffs [0:TAU-1];
+    integer k;
+
+    sampleinball_top #(
+        .N(N),
+        .TAU(TAU),
+        .DATA_WIDTH(DATA_WIDTH),
+        .ADDR_WIDTH(8),
+        .OUT_ADDR_WIDTH(6)
+    ) DUT (
+        .clk(clk),
+        .rst_n(rst_n),
+        .start(start),
+        .done(done),
+        .i(i)
+    );
+
+    always #5 clk = ~clk;  // 100 MHz clock
+
+    initial begin
+        $display("SampleInBall testbench starting...");
+        $dumpfile("sampleinball_top_tb.vcd");
+        $dumpvars(0, sampleinball_top_tb);
+        rst_n = 0;
+        start = 0;
+        #100 rst_n = 1;
+        #20 start = 1;
+        #10 start = 0;
+    end
+
+    initial begin
+        wait(done);
+        #20;  // Allow memory to settle
+
+        zero_count = 0;
+        $display("--- Final Polynomial Coefficients (TAU = %0d) ---", TAU);
+
+        for (k = 0; k < TAU; k = k + 1) begin
+            coeffs[k] = DUT.ram_b_mem_out_flat[DATA_WIDTH*(k+1)-1 -: DATA_WIDTH];
+            if (^coeffs[k] === 1'bx)
+                $display("Coeff[%0d] = X (uninitialized)", k);
+            else if (coeffs[k] == Q - 1)
+                $display("Coeff[%0d] = -1", k);
+            else if (coeffs[k] == 1)
+                $display("Coeff[%0d] = 1", k);
+            else if (coeffs[k] == 0) begin
+                zero_count = zero_count + 1;
+                $display("Coeff[%0d] = 0", k);
+            end else
+                $display("Coeff[%0d] = %0d", k, coeffs[k]);
+        end
+
+        $display("Zero coefficients count = %0d", zero_count);
+        #10 $finish;
+    end
+
+    initial begin
+        #2000000 $display("Timeout reached, stopping simulation."); $finish;
+    end
+
+endmodule
