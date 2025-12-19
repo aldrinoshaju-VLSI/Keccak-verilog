@@ -1,0 +1,715 @@
+Analysis & Elaboration report for version1
+Tue Dec 16 22:58:41 2025
+Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Elaboration Summary
+  3. Parallel Compilation
+  4. Parameter Settings for User Entity Instance: Top-level Entity: |sampleinball_top_new_tb
+  5. Parameter Settings for User Entity Instance: sampleinball_top:dut
+  6. Parameter Settings for User Entity Instance: sampleinball_top:dut|keccak:keccak_inst
+  7. Parameter Settings for User Entity Instance: sampleinball_top:dut|keccak:keccak_inst|padder_fast_2:padder_
+  8. Parameter Settings for User Entity Instance: sampleinball_top:dut|keccak:keccak_inst|padder_fast_2:padder_|padder1:p_suf
+  9. Parameter Settings for User Entity Instance: sampleinball_top:dut|keccak:keccak_inst|f_permutation:f_permutation_
+ 10. Parameter Settings for User Entity Instance: sampleinball_top:dut|sampleinball_fsm:sib_inst
+ 11. Parameter Settings for User Entity Instance: sampleinball_top:dut|dbram:ram_a
+ 12. Parameter Settings for User Entity Instance: sampleinball_top:dut|dbram:ram_b
+ 13. Analysis & Elaboration Settings
+ 14. Port Connectivity Checks: "sampleinball_top:dut|dbram:ram_b"
+ 15. Port Connectivity Checks: "sampleinball_top:dut|dbram:ram_a"
+ 16. Port Connectivity Checks: "sampleinball_top:dut|keccak_prg_adapter:prg_adapter"
+ 17. Port Connectivity Checks: "sampleinball_top:dut|keccak:keccak_inst|f_permutation:f_permutation_"
+ 18. Port Connectivity Checks: "sampleinball_top:dut|keccak:keccak_inst"
+ 19. Port Connectivity Checks: "sampleinball_top:dut"
+ 20. Analysis & Elaboration Messages
+ 21. Analysis & Elaboration Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2025  Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Altera and sold by Altera or its authorized distributors.  Please
+refer to the Altera Software License Subscription Agreements 
+on the Quartus Prime software download page.
+
+
+
++---------------------------------------------------------------------------------+
+; Analysis & Elaboration Summary                                                  ;
++-------------------------------+-------------------------------------------------+
+; Analysis & Elaboration Status ; Successful - Tue Dec 16 22:58:41 2025           ;
+; Quartus Prime Version         ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
+; Revision Name                 ; version1                                        ;
+; Top-level Entity Name         ; sampleinball_top_new_tb                         ;
+; Family                        ; Cyclone V                                       ;
+; Logic utilization (in ALMs)   ; N/A until Partition Merge                       ;
+; Total registers               ; N/A until Partition Merge                       ;
+; Total pins                    ; N/A until Partition Merge                       ;
+; Total virtual pins            ; N/A until Partition Merge                       ;
+; Total block memory bits       ; N/A until Partition Merge                       ;
+; Total PLLs                    ; N/A until Partition Merge                       ;
+; Total DLLs                    ; N/A until Partition Merge                       ;
++-------------------------------+-------------------------------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 12          ;
+; Maximum allowed            ; 6           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |sampleinball_top_new_tb ;
++----------------+---------+--------------------------------------------------------------+
+; Parameter Name ; Value   ; Type                                                         ;
++----------------+---------+--------------------------------------------------------------+
+; N              ; 256     ; Signed Integer                                               ;
+; TAU            ; 60      ; Signed Integer                                               ;
+; DATA_WIDTH     ; 24      ; Signed Integer                                               ;
+; Q              ; 8380417 ; Signed Integer                                               ;
+; CLK_PERIOD     ; 10      ; Signed Integer                                               ;
++----------------+---------+--------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: sampleinball_top:dut ;
++----------------+----------+---------------------------------------+
+; Parameter Name ; Value    ; Type                                  ;
++----------------+----------+---------------------------------------+
+; N              ; 256      ; Signed Integer                        ;
+; Q              ; 8380417  ; Signed Integer                        ;
+; TAU            ; 60       ; Signed Integer                        ;
+; DATA_WIDTH     ; 24       ; Signed Integer                        ;
+; ADDR_WIDTH     ; 8        ; Signed Integer                        ;
+; OUT_ADDR_WIDTH ; 6        ; Signed Integer                        ;
+; RATE_BITS      ; 1088     ; Signed Integer                        ;
+; SUFFIX         ; 00000001 ; Unsigned Binary                       ;
+; OUTPUT_SIZE    ; 1088     ; Signed Integer                        ;
++----------------+----------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: sampleinball_top:dut|keccak:keccak_inst ;
++----------------+----------+----------------------------------------------------------+
+; Parameter Name ; Value    ; Type                                                     ;
++----------------+----------+----------------------------------------------------------+
+; RATE_BITS      ; 1088     ; Signed Integer                                           ;
+; SUFFIX         ; 00000001 ; Unsigned Binary                                          ;
+; OUTPUT_SIZE    ; 1088     ; Signed Integer                                           ;
++----------------+----------+----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: sampleinball_top:dut|keccak:keccak_inst|padder_fast_2:padder_ ;
++----------------+----------+--------------------------------------------------------------------------------+
+; Parameter Name ; Value    ; Type                                                                           ;
++----------------+----------+--------------------------------------------------------------------------------+
+; RATE_BITS      ; 1088     ; Signed Integer                                                                 ;
+; SUFFIX         ; 00000001 ; Unsigned Binary                                                                ;
++----------------+----------+--------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: sampleinball_top:dut|keccak:keccak_inst|padder_fast_2:padder_|padder1:p_suf ;
++----------------+----------+----------------------------------------------------------------------------------------------+
+; Parameter Name ; Value    ; Type                                                                                         ;
++----------------+----------+----------------------------------------------------------------------------------------------+
+; SUFFIX         ; 00000001 ; Unsigned Binary                                                                              ;
++----------------+----------+----------------------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: sampleinball_top:dut|keccak:keccak_inst|f_permutation:f_permutation_ ;
++----------------+-------+------------------------------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                                     ;
++----------------+-------+------------------------------------------------------------------------------------------+
+; RATE_BITS      ; 1088  ; Signed Integer                                                                           ;
++----------------+-------+------------------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: sampleinball_top:dut|sampleinball_fsm:sib_inst ;
++----------------+---------+------------------------------------------------------------------+
+; Parameter Name ; Value   ; Type                                                             ;
++----------------+---------+------------------------------------------------------------------+
+; N              ; 256     ; Signed Integer                                                   ;
+; TAU            ; 60      ; Signed Integer                                                   ;
+; Q              ; 8380417 ; Signed Integer                                                   ;
+; DATA_WIDTH     ; 24      ; Signed Integer                                                   ;
+; ADDR_WIDTH     ; 8       ; Signed Integer                                                   ;
+; OUT_ADDR_WIDTH ; 6       ; Signed Integer                                                   ;
++----------------+---------+------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: sampleinball_top:dut|dbram:ram_a ;
++----------------+-------+------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                 ;
++----------------+-------+------------------------------------------------------+
+; DATA_WIDTH     ; 24    ; Signed Integer                                       ;
+; ADDR_WIDTH     ; 8     ; Signed Integer                                       ;
+; DEPTH          ; 256   ; Signed Integer                                       ;
++----------------+-------+------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: sampleinball_top:dut|dbram:ram_b ;
++----------------+-------+------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                 ;
++----------------+-------+------------------------------------------------------+
+; DATA_WIDTH     ; 24    ; Signed Integer                                       ;
+; ADDR_WIDTH     ; 6     ; Signed Integer                                       ;
+; DEPTH          ; 60    ; Signed Integer                                       ;
++----------------+-------+------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Elaboration Settings                                                                                                ;
++---------------------------------------------------------------------------------+-------------------------+--------------------+
+; Option                                                                          ; Setting                 ; Default Value      ;
++---------------------------------------------------------------------------------+-------------------------+--------------------+
+; Device                                                                          ; 5CGXFC9E7F35C8          ;                    ;
+; Top-level entity name                                                           ; sampleinball_top_new_tb ; version1           ;
+; Family name                                                                     ; Cyclone V               ; Cyclone V          ;
+; Use smart compilation                                                           ; Off                     ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation                ; On                      ; On                 ;
+; Enable compact report table                                                     ; Off                     ; Off                ;
+; Restructure Multiplexers                                                        ; Auto                    ; Auto               ;
+; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                     ; Off                ;
+; Create Debugging Nodes for IP Cores                                             ; Off                     ; Off                ;
+; Preserve fewer node names                                                       ; On                      ; On                 ;
+; Intel FPGA IP Evaluation Mode                                                   ; Enable                  ; Enable             ;
+; Verilog Version                                                                 ; Verilog_2001            ; Verilog_2001       ;
+; VHDL Version                                                                    ; VHDL_1993               ; VHDL_1993          ;
+; State Machine Processing                                                        ; Auto                    ; Auto               ;
+; Safe State Machine                                                              ; Off                     ; Off                ;
+; Extract Verilog State Machines                                                  ; On                      ; On                 ;
+; Extract VHDL State Machines                                                     ; On                      ; On                 ;
+; Ignore Verilog initial constructs                                               ; Off                     ; Off                ;
+; Iteration limit for constant Verilog loops                                      ; 5000                    ; 5000               ;
+; Iteration limit for non-constant Verilog loops                                  ; 250                     ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                         ; On                      ; On                 ;
+; Infer RAMs from Raw Logic                                                       ; On                      ; On                 ;
+; Parallel Synthesis                                                              ; On                      ; On                 ;
+; DSP Block Balancing                                                             ; Auto                    ; Auto               ;
+; NOT Gate Push-Back                                                              ; On                      ; On                 ;
+; Power-Up Don't Care                                                             ; On                      ; On                 ;
+; Remove Redundant Logic Cells                                                    ; Off                     ; Off                ;
+; Remove Duplicate Registers                                                      ; On                      ; On                 ;
+; Ignore CARRY Buffers                                                            ; Off                     ; Off                ;
+; Ignore CASCADE Buffers                                                          ; Off                     ; Off                ;
+; Ignore GLOBAL Buffers                                                           ; Off                     ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                       ; Off                     ; Off                ;
+; Ignore LCELL Buffers                                                            ; Off                     ; Off                ;
+; Ignore SOFT Buffers                                                             ; On                      ; On                 ;
+; Limit AHDL Integers to 32 Bits                                                  ; Off                     ; Off                ;
+; Optimization Technique                                                          ; Balanced                ; Balanced           ;
+; Carry Chain Length                                                              ; 70                      ; 70                 ;
+; Auto Carry Chains                                                               ; On                      ; On                 ;
+; Auto Open-Drain Pins                                                            ; On                      ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                           ; Off                     ; Off                ;
+; Auto ROM Replacement                                                            ; On                      ; On                 ;
+; Auto RAM Replacement                                                            ; On                      ; On                 ;
+; Auto DSP Block Replacement                                                      ; On                      ; On                 ;
+; Auto Shift Register Replacement                                                 ; Auto                    ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                                 ; Auto                    ; Auto               ;
+; Auto Clock Enable Replacement                                                   ; On                      ; On                 ;
+; Strict RAM Replacement                                                          ; Off                     ; Off                ;
+; Allow Synchronous Control Signals                                               ; On                      ; On                 ;
+; Force Use of Synchronous Clear Signals                                          ; Off                     ; Off                ;
+; Auto Resource Sharing                                                           ; Off                     ; Off                ;
+; Allow Any RAM Size For Recognition                                              ; Off                     ; Off                ;
+; Allow Any ROM Size For Recognition                                              ; Off                     ; Off                ;
+; Allow Any Shift Register Size For Recognition                                   ; Off                     ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                             ; On                      ; On                 ;
+; Ignore translate_off and synthesis_off directives                               ; Off                     ; Off                ;
+; Timing-Driven Synthesis                                                         ; On                      ; On                 ;
+; Report Parameter Settings                                                       ; On                      ; On                 ;
+; Report Source Assignments                                                       ; On                      ; On                 ;
+; Report Connectivity Checks                                                      ; On                      ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                              ; Off                     ; Off                ;
+; Synchronization Register Chain Length                                           ; 3                       ; 3                  ;
+; Power Optimization During Synthesis                                             ; Normal compilation      ; Normal compilation ;
+; HDL message level                                                               ; Level2                  ; Level2             ;
+; Suppress Register Optimization Related Messages                                 ; Off                     ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                        ; 5000                    ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                              ; 5000                    ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                       ; 100                     ; 100                ;
+; Clock MUX Protection                                                            ; On                      ; On                 ;
+; Auto Gated Clock Conversion                                                     ; Off                     ; Off                ;
+; Block Design Naming                                                             ; Auto                    ; Auto               ;
+; SDC constraint protection                                                       ; Off                     ; Off                ;
+; Synthesis Effort                                                                ; Auto                    ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal                    ; On                      ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                            ; Off                     ; Off                ;
+; Analysis & Synthesis Message Level                                              ; Medium                  ; Medium             ;
+; Disable Register Merging Across Hierarchies                                     ; Auto                    ; Auto               ;
+; Resource Aware Inference For Block RAM                                          ; On                      ; On                 ;
+; Automatic Parallel Synthesis                                                    ; On                      ; On                 ;
+; Partial Reconfiguration Bitstream ID                                            ; Off                     ; Off                ;
++---------------------------------------------------------------------------------+-------------------------+--------------------+
+
+
++--------------------------------------------------------------+
+; Port Connectivity Checks: "sampleinball_top:dut|dbram:ram_b" ;
++-------+--------+----------+----------------------------------+
+; Port  ; Type   ; Severity ; Details                          ;
++-------+--------+----------+----------------------------------+
+; enb   ; Input  ; Info     ; Stuck at GND                     ;
+; web   ; Input  ; Info     ; Stuck at GND                     ;
+; addrb ; Input  ; Info     ; Stuck at GND                     ;
+; dinb  ; Input  ; Info     ; Stuck at GND                     ;
+; doutb ; Output ; Info     ; Explicitly unconnected           ;
++-------+--------+----------+----------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "sampleinball_top:dut|dbram:ram_a"                                                           ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port         ; Type   ; Severity ; Details                                                                             ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; enb          ; Input  ; Info     ; Stuck at GND                                                                        ;
+; web          ; Input  ; Info     ; Stuck at GND                                                                        ;
+; addrb        ; Input  ; Info     ; Stuck at GND                                                                        ;
+; dinb         ; Input  ; Info     ; Stuck at GND                                                                        ;
+; doutb        ; Output ; Info     ; Explicitly unconnected                                                              ;
+; mem_out_flat ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "sampleinball_top:dut|keccak_prg_adapter:prg_adapter"                                                         ;
++----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port     ; Type   ; Severity ; Details                                                                                                  ;
++----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; prg_done ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "sampleinball_top:dut|keccak:keccak_inst|f_permutation:f_permutation_"                      ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                             ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; out[511..0] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; out_ready   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "sampleinball_top:dut|keccak:keccak_inst"                                                                                                ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                                                                          ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------+
+; buffer_full ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                              ;
+; out         ; Output ; Warning  ; Output or bidir port (1088 bits) is wider than the port expression (256 bits) it drives; bit(s) "out[1087..256]" have no fanouts ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "sampleinball_top:dut"                                                                             ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port               ; Type   ; Severity ; Details                                                                             ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------+
+; start              ; Input  ; Info     ; Stuck at GND                                                                        ;
+; done               ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; i                  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; ram_b_mem_out_flat ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++---------------------------------+
+; Analysis & Elaboration Messages ;
++---------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Elaboration
+    Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+    Info: Processing started: Tue Dec 16 22:58:30 2025
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off version1 -c version1 --analysis_and_elaboration
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file f_permutation.v
+    Info (12023): Found entity 1: f_permutation File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/f_permutation.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file keccak.v
+    Info (12023): Found entity 1: keccak File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak.v Line: 10
+Info (12021): Found 1 design units, including 1 entities, in source file padder.v
+    Info (12023): Found entity 1: padder File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/padder.v Line: 5
+Info (12021): Found 1 design units, including 1 entities, in source file padder1.v
+    Info (12023): Found entity 1: padder1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/padder1.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file rconst2in1.v
+    Info (12023): Found entity 1: rconst2in1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/rconst2in1.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file round2in1.v
+    Info (12023): Found entity 1: round2in1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/round2in1.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file keccak_test.v
+    Info (12023): Found entity 1: keccak_test File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak_test.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file keccak_test_shake256_512.v
+    Info (12023): Found entity 1: keccak_test_shake256_512 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak_test_shake256_512.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file keccak_test_shake256_vary.v
+    Info (12023): Found entity 1: keccak_test_shake256_vary File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak_test_shake256_vary.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file keccak_test_shake128_512.v
+    Info (12023): Found entity 1: keccak_test_shake128_512 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak_test_shake128_512.v Line: 3
+Info (12021): Found 0 design units, including 0 entities, in source file keccak_out_vary.v
+Info (12021): Found 1 design units, including 1 entities, in source file padder_fast.v
+    Info (12023): Found entity 1: padder_fast File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/padder_fast.v Line: 16
+Info (12021): Found 1 design units, including 1 entities, in source file padder_fast_2.v
+    Info (12023): Found entity 1: padder_fast_2 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/padder_fast_2.v Line: 7
+Info (12021): Found 1 design units, including 1 entities, in source file tb_padder.v
+    Info (12023): Found entity 1: tb_padder File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/tb_padder.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file tb_padder_fast_2.v
+    Info (12023): Found entity 1: tb_padder_fast_2 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/tb_padder_fast_2.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file round2in1_pipelined.v
+    Info (12023): Found entity 1: round2in1_pipelined File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/round2in1_pipelined.v Line: 12
+Info (12021): Found 1 design units, including 1 entities, in source file dbram.v
+    Info (12023): Found entity 1: dbram File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/dbram.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file prg_stub.v
+    Info (12023): Found entity 1: prg_stub File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/prg_stub.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file sampleinball_fsm.v
+    Info (12023): Found entity 1: sampleinball_fsm File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_fsm.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file sampleinball_top_tb.v
+    Info (12023): Found entity 1: sampleinball_top_tb File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_tb.v Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file sampleinball_top.v
+    Info (12023): Found entity 1: sampleinball_top File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top.v Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file keccak_prg_adapter.v
+    Info (12023): Found entity 1: keccak_prg_adapter File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak_prg_adapter.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file tb_keccak_prg_adapter.v
+    Info (12023): Found entity 1: tb_keccak_prg_adapter File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/tb_keccak_prg_adapter.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file keccak_test_shake256_any.v
+    Info (12023): Found entity 1: keccak_test_shake256_any File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak_test_shake256_any.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file sampleinball_top_new_tb.v
+    Info (12023): Found entity 1: sampleinball_top_new_tb File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 3
+Info (12127): Elaborating entity "sampleinball_top_new_tb" for the top level hierarchy
+Warning (10755): Verilog HDL warning at sampleinball_top_new_tb.v(50): assignments to clk create a combinational loop File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 50
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(86): ============================================ File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 86
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(87):  SampleInBall + Keccak (PURE VERILOG TB) File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 87
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(88): ============================================ File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 88
+Warning (10175): Verilog HDL warning at sampleinball_top_new_tb.v(90): ignoring unsupported system task File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 90
+Warning (10175): Verilog HDL warning at sampleinball_top_new_tb.v(91): ignoring unsupported system task File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 91
+Warning (10193): Verilog HDL unsupported feature warning at sampleinball_top_new_tb.v(97): Wait Statement is not supported and is ignored File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 97
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(100): \n--- SampleInBall Output (TAU=60) --- File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 100
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[0] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[0] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[0] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[0] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[1] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[1] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[1] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[1] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[2] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[2] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[2] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[2] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[3] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[3] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[3] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[3] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[4] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[4] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[4] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[4] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[5] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[5] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[5] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[5] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[6] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[6] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[6] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[6] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[7] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[7] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[7] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[7] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[8] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[8] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[8] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[8] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[9] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[9] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[9] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[9] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[10] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[10] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[10] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[10] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[11] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[11] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[11] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[11] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[12] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[12] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[12] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[12] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[13] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[13] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[13] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[13] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[14] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[14] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[14] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[14] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[15] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[15] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[15] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[15] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[16] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[16] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[16] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[16] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[17] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[17] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[17] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[17] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[18] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[18] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[18] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[18] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[19] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[19] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[19] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[19] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[20] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[20] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[20] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[20] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[21] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[21] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[21] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[21] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[22] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[22] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[22] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[22] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[23] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[23] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[23] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[23] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[24] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[24] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[24] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[24] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[25] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[25] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[25] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[25] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[26] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[26] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[26] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[26] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[27] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[27] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[27] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[27] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[28] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[28] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[28] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[28] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[29] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[29] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[29] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[29] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[30] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[30] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[30] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[30] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[31] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[31] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[31] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[31] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[32] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[32] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[32] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[32] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[33] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[33] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[33] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[33] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[34] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[34] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[34] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[34] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[35] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[35] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[35] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[35] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[36] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[36] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[36] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[36] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[37] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[37] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[37] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[37] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[38] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[38] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[38] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[38] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[39] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[39] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[39] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[39] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[40] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[40] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[40] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[40] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[41] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[41] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[41] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[41] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[42] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[42] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[42] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[42] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[43] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[43] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[43] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[43] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[44] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[44] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[44] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[44] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[45] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[45] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[45] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[45] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[46] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[46] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[46] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[46] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[47] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[47] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[47] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[47] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[48] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[48] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[48] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[48] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[49] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[49] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[49] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[49] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[50] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[50] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[50] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[50] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[51] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[51] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[51] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[51] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[52] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[52] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[52] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[52] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[53] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[53] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[53] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[53] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[54] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[54] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[54] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[54] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[55] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[55] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[55] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[55] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[56] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[56] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[56] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[56] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[57] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[57] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[57] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[57] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[58] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[58] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[58] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[58] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(106): Coeff[59] = +1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 106
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(108): Coeff[59] = -1 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 108
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(110): Coeff[59] =  0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 110
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(112): Coeff[59] = 0 File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 112
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(115): \n=== TEST PASSED === File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 115
+Warning (10175): Verilog HDL warning at sampleinball_top_new_tb.v(117): ignoring unsupported system task File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 117
+Warning (10855): Verilog HDL warning at sampleinball_top_new_tb.v(83): initial value for variable coeff should be constant File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 83
+Info (10648): Verilog HDL Display System Task info at sampleinball_top_new_tb.v(123): ERROR: Simulation timeout! File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 123
+Warning (10175): Verilog HDL warning at sampleinball_top_new_tb.v(124): ignoring unsupported system task File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 124
+Info (12128): Elaborating entity "sampleinball_top" for hierarchy "sampleinball_top:dut" File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 46
+Info (12128): Elaborating entity "keccak" for hierarchy "sampleinball_top:dut|keccak:keccak_inst" File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top.v Line: 63
+Info (12128): Elaborating entity "padder_fast_2" for hierarchy "sampleinball_top:dut|keccak:keccak_inst|padder_fast_2:padder_" File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak.v Line: 89
+Warning (10230): Verilog HDL assignment warning at padder_fast_2.v(23): truncated value with size 1095 to match size of target (1088) File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/padder_fast_2.v Line: 23
+Info (12128): Elaborating entity "padder1" for hierarchy "sampleinball_top:dut|keccak:keccak_inst|padder_fast_2:padder_|padder1:p_suf" File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/padder_fast_2.v Line: 46
+Info (12128): Elaborating entity "f_permutation" for hierarchy "sampleinball_top:dut|keccak:keccak_inst|f_permutation:f_permutation_" File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak.v Line: 99
+Info (12128): Elaborating entity "rconst2in1" for hierarchy "sampleinball_top:dut|keccak:keccak_inst|f_permutation:f_permutation_|rconst2in1:rconst_" File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/f_permutation.v Line: 45
+Info (12128): Elaborating entity "round2in1" for hierarchy "sampleinball_top:dut|keccak:keccak_inst|f_permutation:f_permutation_|round2in1:round_" File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/f_permutation.v Line: 46
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "a" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "c" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "d" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "e" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "f" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "g" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "cc" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "dd" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "ee" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "ff" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "gg" into its bus
+Info (12128): Elaborating entity "keccak_prg_adapter" for hierarchy "sampleinball_top:dut|keccak_prg_adapter:prg_adapter" File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top.v Line: 73
+Warning (10230): Verilog HDL assignment warning at keccak_prg_adapter.v(43): truncated value with size 32 to match size of target (6) File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak_prg_adapter.v Line: 43
+Info (12128): Elaborating entity "sampleinball_fsm" for hierarchy "sampleinball_top:dut|sampleinball_fsm:sib_inst" File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top.v Line: 102
+Warning (10036): Verilog HDL or VHDL warning at sampleinball_fsm.v(46): object "prev_r" assigned a value but never read File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_fsm.v Line: 46
+Warning (10036): Verilog HDL or VHDL warning at sampleinball_fsm.v(47): object "prev_write_success" assigned a value but never read File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_fsm.v Line: 47
+Warning (10230): Verilog HDL assignment warning at sampleinball_fsm.v(128): truncated value with size 32 to match size of target (24) File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_fsm.v Line: 128
+Warning (10230): Verilog HDL assignment warning at sampleinball_fsm.v(166): truncated value with size 32 to match size of target (6) File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_fsm.v Line: 166
+Info (12128): Elaborating entity "dbram" for hierarchy "sampleinball_top:dut|dbram:ram_a" File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top.v Line: 122
+Warning (10240): Verilog HDL Always Construct warning at dbram.v(28): inferring latch(es) for variable "i", which holds its previous value in one or more paths through the always construct File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/dbram.v Line: 28
+Info (12128): Elaborating entity "dbram" for hierarchy "sampleinball_top:dut|dbram:ram_b" File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top.v Line: 142
+Warning (10240): Verilog HDL Always Construct warning at dbram.v(28): inferring latch(es) for variable "i", which holds its previous value in one or more paths through the always construct File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/dbram.v Line: 28
+Warning (12011): Net is missing source, defaulting to GND
+    Warning (12110): Net "clk" is missing source, defaulting to GND File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v Line: 13
+Warning (12241): 2 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Info (144001): Generated suppressed messages file C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/output_files/version1.map.smsg
+Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 19 warnings
+    Info: Peak virtual memory: 4915 megabytes
+    Info: Processing ended: Tue Dec 16 22:58:41 2025
+    Info: Elapsed time: 00:00:11
+    Info: Total CPU time (on all processors): 00:00:22
+
+
++--------------------------------------------+
+; Analysis & Elaboration Suppressed Messages ;
++--------------------------------------------+
+The suppressed messages can be found in C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/output_files/version1.map.smsg.
+
+

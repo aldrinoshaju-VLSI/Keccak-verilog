@@ -1,0 +1,133 @@
+// ============================================================================
+// padder_fast: MSB-first lane placement + immediate padding (no extra cycles)
+// ----------------------------------------------------------------------------
+// • RATE_BITS in {576, 1088, 1344}; SUFFIX in {8'h01, 8'h06, 8'h1F}.
+// • Loads 64b lanes from MSB slice downward (left->right).
+// • On is_last=1: inject SUFFIX at byte_num, set final pad bit, zero tail,
+//   assert out_ready in the *same* cycle the word is accepted.
+// • Handshake: buffer_full==1 when a full block is assembled and held for f_ack.
+// ----------------------------------------------------------------------------
+
+module padder_fast_2 #(
+    parameter integer RATE_BITS = 576,      // 576(SHA3-512),1088(SHAKE256),1344(SHAKE128)
+    parameter [7:0]   SUFFIX    = 8'h01     // 8'h01 Keccak, 8'h06 SHA-3, 8'h1F SHAKE
+)(
+    input              clk,
+    input              reset,
+
+    // input word (one 64b lane per beat)
+    input      [63:0]  in,
+    input              in_ready,            // producer says 'in' is valid this cycle
+    input              is_last,             // marks this beat as final for the block
+    input      [2:0]   byte_num,            // first unused byte index in 'in' (0..7); only used when is_last=1
+
+    // to user / permutation
+    output             buffer_full,         // block assembled & held (user should stop feeding)
+    output reg [RATE_BITS-1:0] out,         // rate-sized block to keccak-f
+    output             out_ready,           // valid block available (to permutation)
+    input              f_ack                // permutation consumed this block
+);
+    // Number of 64-bit lanes in the rate
+    localparam integer NUM_WORDS = RATE_BITS/64;   // 9, 17, 21
+
+    // One-hot write pointer, starting at the MSB lane.
+    // wptr[k]=1 selects slice [HI(k):LO(k)], where k=NUM_WORDS-1..0 from MSB to LSB.
+    reg [NUM_WORDS-1:0] wptr;
+
+    // Full flag: when 1, 'out' holds a complete block; wait for f_ack to clear.
+    reg full;
+
+    // Accept when producer is ready and we are not already holding a full block.
+    wire accept = in_ready & ~full;
+
+    // Buffer_full/out_ready semantics: we expose the same 'full' flag.
+    assign buffer_full = full;
+    assign out_ready   = full;
+
+    // Suffix injector for the *current* input word (only used when is_last=1)
+    wire [63:0] in_suffix;
+    padder1 #(.SUFFIX(SUFFIX)) p_suffix (
+        .in(in),
+        .byte_num(byte_num),   // only meaningful when is_last=1 (per your rule)
+        .out(in_suffix)
+    );
+
+    // Build the next OUT value combinationally
+    // - Write current 64b lane into the selected slice when we accept
+    // - If is_last=1 on this acceptance: zero all remaining slices and set pad10*1 final bit
+    // Variable part-selects aren’t Verilog-2001, so we use a generated mux per lane.
+    reg [RATE_BITS-1:0] out_next;
+    integer k;
+    always @* begin
+        out_next = out;
+
+        // default: keep existing contents
+        // if accepting this cycle, place the lane into the selected slice
+        // choose lane_data = in (normal) or in_suffix (if last)
+        for (k = 0; k < NUM_WORDS; k = k+1) begin : WRITE_PER_LANE
+            // slice index from MSB: lane 0 is MSB-most => k=0
+            // hi/lo for lane k:
+            //   HI = RATE_BITS-1 - 64*k
+            //   LO = RATE_BITS-64 - 64*k
+            // selected when wptr[NUM_WORDS-1-k] == 1
+            if (accept && wptr[NUM_WORDS-1-k]) begin
+                out_next[RATE_BITS-1 - 64*k : RATE_BITS-64 - 64*k] = is_last ? in_suffix : in;
+            end
+        end
+
+        // If this accepted beat is the last:
+        //   - zero all remaining (lower) lanes (already zero unless previously written)
+        //   - set final bit of the rate area to 1 (pad10*1)
+        if (accept && is_last) begin
+            // Zero all slices *below* the currently written one (padding zeros)
+            // Any slices above are already filled by earlier beats.
+            for (k = 0; k < NUM_WORDS; k = k+1) begin : ZERO_TAIL
+                if (wptr[NUM_WORDS-1-k]) begin
+                    // zero all lower lanes j > k
+                    integer j;
+                    for (j = k+1; j < NUM_WORDS; j = j+1) begin
+                        out_next[RATE_BITS-1 - 64*j : RATE_BITS-64 - 64*j] = 64'd0;
+                    end
+                end
+            end
+            // Final '1' of pad10*1 at the last bit of the rate area
+            out_next[RATE_BITS-1] = 1'b1;
+        end
+    end
+
+    // Sequential registers: OUT, WPTR, FULL
+    always @(posedge clk) begin
+        if (reset) begin
+            out  <= {RATE_BITS{1'b0}};
+            wptr <= {{(NUM_WORDS-1){1'b0}}, 1'b1}; // start at MSB lane (bit 0 is LSB of vector)
+            full <= 1'b0;
+        end else begin
+            // If permutation acks, clear for next block
+            if (f_ack) begin
+                full <= 1'b0;
+                wptr <= {{(NUM_WORDS-1){1'b0}}, 1'b1};
+                // it's OK to leave 'out' undefined here; we'll overwrite on first accept
+            end
+
+            // Accepting a lane this cycle?
+            if (accept) begin
+                out <= out_next;
+
+                // If this was the last beat, block becomes full *now*
+                if (is_last) begin
+                    full <= 1'b1;
+                    // pointer will be reset on f_ack
+                end else begin
+                    // advance one-hot pointer downwards (towards LSB lanes)
+                    // Example for NUM_WORDS=9: 000000001 -> 000000010 -> ... -> 100000000
+                    wptr <= {wptr[NUM_WORDS-2:0], 1'b0};
+
+                    // If this write filled the final LSB lane, block is full too
+                    if (wptr[NUM_WORDS-1]) begin
+                        full <= 1'b1;
+                    end
+                end
+            end
+        end
+    end
+endmodule

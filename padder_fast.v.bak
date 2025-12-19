@@ -1,0 +1,127 @@
+module padder_fast #(
+    parameter integer RATE_BITS = 1088,   // 576/1088/1344
+    parameter [7:0]   SUFFIX    = 8'h1F   // 01=Keccak, 06=SHA-3, 1F=SHAKE
+)(
+    input              clk, reset,
+    input      [63:0]  in,
+    input              in_ready, is_last,
+    input      [2:0]   byte_num,
+    output             buffer_full,      // to user
+    output reg [RATE_BITS-1:0] out,      // to f_permutation
+    output             out_ready,        // to f_permutation
+    input              f_ack             // from f_permutation
+);
+    localparam integer NUM_WORDS = RATE_BITS/64; // 9,17,21
+
+    // how many 64-bit words of this block have been loaded so far
+    reg  [7:0] word_cnt;         // enough for up to 255 words
+    wire       at_last_word_pos  = (word_cnt == (NUM_WORDS-1));
+
+    // “fast tail” control
+    reg        have_block;       // we currently hold a complete block in 'out'
+    reg        need_extra_pad;   // boundary case (byte_num==0) needs extra padding block
+
+    // suffix injector for the word you present with is_last=1
+    wire [63:0] in_with_suffix;
+    padder1 #(.SUFFIX(SUFFIX)) p1 (
+        .in(in),
+        .byte_num(byte_num),
+        .out(in_with_suffix)
+    );
+
+    // Ready/Full/OutReady
+    assign buffer_full = have_block;     // block is ready now
+    assign out_ready   = have_block;
+
+    // write helper: map word index -> bit slice [k*64 +: 64]
+    // (same packing as your original shift-left implementation ended up with:
+    // first beat -> [63:0], second -> [127:64], etc.)
+    integer k;
+
+    // Build a padding-only block (for boundary case) into 'out'
+    task build_padding_block;
+    begin
+        out = {RATE_BITS{1'b0}};
+        // suffix at first byte
+        out[7:0] = SUFFIX;
+        // final '1' at MSB of last rate byte
+        out[RATE_BITS-1] = 1'b1;
+    end
+    endtask
+
+    // Accept predicate: we only take input when we don’t currently hold a block
+    wire accept = in_ready & ~have_block;
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            out            <= {RATE_BITS{1'b0}};
+            word_cnt       <= 8'd0;
+            have_block     <= 1'b0;
+            need_extra_pad <= 1'b0;
+        end else begin
+            // When permutation takes the block, clear have_block and either
+            // present a padding-only block (boundary case) or go back to collecting
+            if (f_ack) begin
+                have_block <= 1'b0;
+                if (need_extra_pad) begin
+                    // Immediately form the extra padding block with no input cycles
+                    build_padding_block();
+                    need_extra_pad <= 1'b0;
+                    have_block     <= 1'b1;  // present it right away
+                    word_cnt       <= 8'd0;  // next block will start fresh after this is taken
+                end else begin
+                    // start a fresh block
+                    out      <= {RATE_BITS{1'b0}};
+                    word_cnt <= 8'd0;
+                end
+            end
+
+            // Normal streaming / fast-tail handling
+            if (accept) begin
+                // Default: write incoming 64-bit word at current position
+                // (position grows upward: 0 -> [63:0], 1 -> [127:64], ...)
+                out[word_cnt*64 +: 64] <= (is_last ? in_with_suffix : in);
+
+                if (is_last) begin
+                    // Two cases for padding:
+
+                    // (A) If there is space in this block (byte_num != 0),
+                    //     we can finish the entire padding IN THIS CYCLE:
+                    //     - the suffix is already written into this last word
+                    //     - the rest of the block (higher words) must be zeros:
+                    //       they already are zeros because 'out' was reset at f_ack
+                    //     - set the final pad '1' (last bit of rate area)
+                    //     - assert have_block immediately (no extra cycles)
+                    if (byte_num != 3'd0) begin
+                        out[RATE_BITS-1] <= 1'b1;  // final '1' of pad10*1
+                        have_block       <= 1'b1;  // done now
+                        // word_cnt can be anything; we’re presenting a complete block
+                    end
+                    // (B) Boundary case: byte_num == 0 (message exactly fills the block)
+                    //     Current block is pure message; we must produce an EXTRA padding block.
+                    else begin
+                        if (at_last_word_pos) begin
+                            // Current block is now full (pure message) — present it
+                            have_block     <= 1'b1;
+                            need_extra_pad <= 1'b1;  // schedule padding-only block after f_ack
+                        end
+                        // If not at_last_word_pos but is_last && byte_num==0 can’t happen,
+                        // because byte_num==0 implies exactly an integer number of 64b words.
+                    end
+
+                    // do NOT advance word_cnt when we declare have_block immediately;
+                    // next block (if any) will reset word_cnt on f_ack
+                end
+                else begin
+                    // Not last: advance position; if we just filled the last slot, present the block.
+                    if (at_last_word_pos) begin
+                        have_block <= 1'b1;  // block complete (no padding, more input will follow next block)
+                        // wait for f_ack to start the next one
+                    end else begin
+                        word_cnt <= word_cnt + 8'd1;
+                    end
+                end
+            end
+        end
+    end
+endmodule
