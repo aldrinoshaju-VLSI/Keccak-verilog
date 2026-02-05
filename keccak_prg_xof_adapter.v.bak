@@ -1,0 +1,238 @@
+`timescale 1ns/1ps
+
+module keccak_prg_xof_adapter #(
+    // Keccak parameters (SHAKE256 typical)
+    parameter integer RATE_BITS    = 1088,
+    parameter [7:0]   SUFFIX       = 8'h1F,
+
+    // Output block width we fetch per squeeze from keccak_xof
+    // Use 512 if you configured keccak_xof OUTPUT_SIZE=512
+    parameter integer KECCAK_BLOCK_BITS = 1088,
+
+    // Safety limit: maximum number of squeeze blocks allowed
+    // Set to 0 to mean "no limit" (not recommended for simulations with bugs)
+    parameter integer MAX_SQUEEZE_BLOCKS = 0
+)(
+    input  wire        clk,
+    input  wire        rst_n,
+
+    // Control
+    input  wire        start,
+
+    // Handshake to sampleinball_fsm
+    input  wire        ready,        // prg_ready from FSM
+    output reg         valid,        // prg_valid to FSM
+    output reg  [8:0]  prg_bits,     // {sign,index}
+
+    // Status
+    output reg         exhausted,    // asserted if we cannot provide more samples
+    output reg  [15:0] sample_count  // number of 9-bit samples served
+);
+
+    // ------------------------------------------------------------
+    // Keccak absorb interface (here we absorb an empty message once)
+    // You can replace this with a real seed absorb later.
+    // ------------------------------------------------------------
+    reg  [63:0] in_word;
+    reg         in_ready;
+    reg         is_last;
+    reg  [2:0]  byte_num;
+    wire        buffer_full;
+
+    reg         squeeze_next;
+    wire [KECCAK_BLOCK_BITS-1:0] out_block;
+    wire        out_valid;
+
+    // Instantiate your multi-squeeze keccak core
+    keccak_xof #(
+        .RATE_BITS   (RATE_BITS),
+        .SUFFIX      (SUFFIX),
+        .OUTPUT_SIZE (KECCAK_BLOCK_BITS)
+    ) u_keccak (
+        .clk         (clk),
+        .reset       (~rst_n),
+
+        .in          (in_word),
+        .in_ready    (in_ready),
+        .is_last     (is_last),
+        .byte_num    (byte_num),
+        .buffer_full (buffer_full),
+
+        .squeeze_next(squeeze_next),
+
+        .out         (out_block),
+        .out_valid   (out_valid)
+    );
+
+    // ------------------------------------------------------------
+    // Bit buffer: stores Keccak output bits and serves 9-bit chunks
+    // We keep LSB-first consumption: next bits come from buffer[0 +: 9].
+    // ------------------------------------------------------------
+    reg [2047:0] bitbuf;       // large enough for a couple of blocks; used as shift register
+    reg [11:0]   bitcount;     // number of valid bits currently in bitbuf
+
+    // Track squeeze block count (optional safety limit)
+    reg [15:0] squeeze_blocks_used;
+
+    // Internal state
+    reg running;
+
+    localparam integer NEED_BITS = 9;
+
+    // Helper: can we serve a sample right now?
+    wire have_sample = (bitcount >= NEED_BITS);
+
+    // ------------------------------------------------------------
+    // Small control FSM for adapter
+    // ------------------------------------------------------------
+    localparam [2:0]
+        A_IDLE       = 3'd0,
+        A_ABSORB0    = 3'd1,
+        A_WAIT_OUT0  = 3'd2,
+        A_RUN        = 3'd3,
+        A_REQ_SQ     = 3'd4,
+        A_WAIT_SQ    = 3'd5,
+        A_EXHAUSTED  = 3'd6;
+
+    reg [2:0] ast;
+
+    // One-cycle pulse helper for squeeze_next
+    reg sq_pulse_pending;
+
+    // ------------------------------------------------------------
+    // Absorb strategy (minimal): absorb a single empty block once
+    // Many SHAKE cores allow "is_last" with byte_num=0 for empty msg.
+    // If your padder expects something else, change A_ABSORB0 behavior accordingly.
+    // ------------------------------------------------------------
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            // Keccak absorb signals
+            in_word   <= 64'd0;
+            in_ready  <= 1'b0;
+            is_last   <= 1'b0;
+            byte_num  <= 3'd0;
+
+            // squeeze control
+            squeeze_next <= 1'b0;
+            sq_pulse_pending <= 1'b0;
+
+            // buffer
+            bitbuf    <= 2048'd0;
+            bitcount  <= 12'd0;
+
+            // outputs
+            valid      <= 1'b0;
+            prg_bits   <= 9'd0;
+            exhausted  <= 1'b0;
+
+            // counters
+            sample_count        <= 16'd0;
+            squeeze_blocks_used <= 16'd0;
+
+            running   <= 1'b0;
+            ast       <= A_IDLE;
+        end else begin
+            // defaults
+            valid       <= 1'b0;
+            in_ready    <= 1'b0;
+            is_last     <= 1'b0;
+            squeeze_next<= 1'b0;
+
+            case (ast)
+
+                A_IDLE: begin
+                    exhausted  <= 1'b0;
+                    running    <= 1'b0;
+                    bitcount   <= 12'd0;
+                    bitbuf     <= 2048'd0;
+                    sample_count <= 16'd0;
+                    squeeze_blocks_used <= 16'd0;
+
+                    if (start) begin
+                        running <= 1'b1;
+                        ast <= A_ABSORB0;
+                    end
+                end
+
+                // Absorb empty message (one shot)
+                A_ABSORB0: begin
+                    // wait for padder buffer available
+                    if (!buffer_full) begin
+                        in_word  <= 64'd0;
+                        in_ready <= 1'b1;
+                        is_last  <= 1'b1;
+                        byte_num <= 3'd0;   // 0 bytes of message in this final word
+                        ast <= A_WAIT_OUT0;
+                    end
+                end
+
+                // Wait for first output block to become valid
+                A_WAIT_OUT0: begin
+                    if (out_valid) begin
+                        // Load block into bit buffer (LSB-first)
+                        // Append to current buffer at top: shift existing up, insert new at LSBs
+                        bitbuf   <= {bitbuf[2047-KECCAK_BLOCK_BITS:0], out_block};
+                        bitcount <= bitcount + KECCAK_BLOCK_BITS[11:0];
+
+                        squeeze_blocks_used <= squeeze_blocks_used + 1'b1;
+                        ast <= A_RUN;
+                    end
+                end
+
+                // Normal running: serve samples when requested.
+                A_RUN: begin
+                    // If consumer requests and we have 9 bits: serve
+                    if (running && ready) begin
+                        if (have_sample) begin
+                            prg_bits <= bitbuf[8:0];
+                            valid    <= 1'b1;
+
+                            // consume 9 bits
+                            bitbuf   <= {9'b0, bitbuf[2047:9]};
+                            bitcount <= bitcount - NEED_BITS[11:0];
+
+                            sample_count <= sample_count + 1'b1;
+                        end else begin
+                            // Not enough bits -> request squeeze
+                            ast <= A_REQ_SQ;
+                        end
+                    end
+                end
+
+                // Issue squeeze request (one-cycle pulse)
+                A_REQ_SQ: begin
+                    // Optional safety limit
+                    if (MAX_SQUEEZE_BLOCKS != 0 && squeeze_blocks_used >= MAX_SQUEEZE_BLOCKS) begin
+                        exhausted <= 1'b1;
+                        ast <= A_EXHAUSTED;
+                    end else begin
+                        // Pulse squeeze_next
+                        squeeze_next <= 1'b1;
+                        ast <= A_WAIT_SQ;
+                    end
+                end
+
+                // Wait for keccak out_valid again, then load more bits
+                A_WAIT_SQ: begin
+                    if (out_valid) begin
+                        bitbuf   <= {bitbuf[2047-KECCAK_BLOCK_BITS:0], out_block};
+                        bitcount <= bitcount + KECCAK_BLOCK_BITS[11:0];
+
+                        squeeze_blocks_used <= squeeze_blocks_used + 1'b1;
+                        ast <= A_RUN;
+                    end
+                end
+
+                A_EXHAUSTED: begin
+                    // Hold exhausted high; do not assert valid anymore
+                    exhausted <= 1'b1;
+                    if (!start) ast <= A_IDLE;
+                end
+
+                default: ast <= A_IDLE;
+            endcase
+        end
+    end
+
+endmodule

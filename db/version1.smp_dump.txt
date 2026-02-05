@@ -1,0 +1,24 @@
+
+State Machine - |keccak_prg_xof_adapter|ast
+Name ast.A_EXHAUSTED ast.A_WAIT_SQ ast.A_REQ_SQ ast.A_RUN ast.A_WAIT_OUT0 ast.A_ABSORB0 ast.A_IDLE 
+ast.A_IDLE 0 0 0 0 0 0 0 
+ast.A_ABSORB0 0 0 0 0 0 1 1 
+ast.A_WAIT_OUT0 0 0 0 0 1 0 1 
+ast.A_RUN 0 0 0 1 0 0 1 
+ast.A_REQ_SQ 0 0 1 0 0 0 1 
+ast.A_WAIT_SQ 0 1 0 0 0 0 1 
+ast.A_EXHAUSTED 1 0 0 0 0 0 1 
+
+State Machine - |keccak_prg_xof_adapter|keccak_xof:u_keccak|st_d
+Name st_d.ST_SQUEEZE st_d.ST_HAVE_OUT st_d.ST_PERMUTE st_d.ST_ABSORB 
+st_d.ST_ABSORB 0 0 0 0 
+st_d.ST_PERMUTE 0 0 1 1 
+st_d.ST_HAVE_OUT 0 1 0 1 
+st_d.ST_SQUEEZE 1 0 0 1 
+
+State Machine - |keccak_prg_xof_adapter|keccak_xof:u_keccak|st
+Name st.ST_SQUEEZE st.ST_HAVE_OUT st.ST_PERMUTE st.ST_ABSORB 
+st.ST_ABSORB 0 0 0 0 
+st.ST_PERMUTE 0 0 1 1 
+st.ST_HAVE_OUT 0 1 0 1 
+st.ST_SQUEEZE 1 0 0 1 

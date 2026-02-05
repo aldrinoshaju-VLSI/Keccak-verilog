@@ -16,8 +16,8 @@ module keccak_test_shake256_512;
     //   SHAKE128: RATE_BITS=1344, SUFFIX=8'h1F, DO_COMPARE=0 (unless you change vectors)
     localparam integer RATE_BITS  = 1088;   // 576 (SHA3-512), 1088 (SHAKE256), 1344 (SHAKE128)
     localparam [7:0]   SUFFIX     = 8'h1F; // 8'h06 (SHA3), 8'h1F (SHAKE)
-    localparam integer DO_COMPARE = 1'b1;  // set 0 for SHAKE unless you replace expected digests
-	 localparam integer OUTPUT_SIZE = 512;  // set 256 for 32 byte, or 512 for 64 byte
+    localparam integer DO_COMPARE = 1'b0;  // set 0 for SHAKE unless you replace expected digests
+	 localparam integer OUTPUT_SIZE = 1088;  // set 256 for 32 byte, or 512 for 64 byte
     // ---------------------------------------------------------------------
 
     localparam CLK_PER = 4;

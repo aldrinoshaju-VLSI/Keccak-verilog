@@ -9,7 +9,7 @@ module sampleinball_fsm #(
     parameter OUT_ADDR_WIDTH = 6
 )(
     input clk,
-    input rst,
+    input rst_n,
     input start,
     input prg_valid,
     input [ADDR_WIDTH:0] prg_bits,  // [8]=sign, [7:0]=index
@@ -59,8 +59,8 @@ module sampleinball_fsm #(
         end
     endfunction
 
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
             state_internal <= IDLE;
             done <= 0;
             sampled_flags <= 0;

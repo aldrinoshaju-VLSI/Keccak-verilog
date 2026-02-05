@@ -46,14 +46,10 @@ vlib rtl_work
 vmap work rtl_work
 
 vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/f_permutation.v}
-vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak.v}
 vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/padder1.v}
 vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/rconst2in1.v}
 vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/round2in1.v}
 vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/padder_fast_2.v}
-vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/dbram.v}
-vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_fsm.v}
-vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top.v}
-vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak_prg_adapter.v}
-vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/sampleinball_top_new_tb.v}
+vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak_xof.v}
+vlog -vlog01compat -work work +incdir+C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5 {C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/keccak_test_shake256_512_xof_2.v}
 

@@ -6,7 +6,7 @@ module dbram #(
     parameter DEPTH = (1 << ADDR_WIDTH)
 )(
     input clk,
-    input rst,
+    input rst_n,
     input ena,
     input wea,
     input [ADDR_WIDTH-1:0] addra,
@@ -25,8 +25,8 @@ module dbram #(
     reg [DATA_WIDTH-1:0] mem [0:DEPTH-1];
     integer i;
 
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
             for (i = 0; i < DEPTH; i = i + 1)
                 mem[i] <= 0;
             douta <= 0;

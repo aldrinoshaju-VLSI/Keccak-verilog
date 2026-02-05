@@ -1,0 +1,226 @@
+/*  Multi-squeeze Keccak wrapper (XOF-style) for your existing keccak.v structure
+    ---------------------------------------------------------------------------
+    What this does:
+    - Absorb exactly like your current module using padder_fast_2 + f_permutation.
+    - Produces the first OUTPUT_SIZE block and asserts out_valid.
+    - If squeeze_next is asserted by the user, it triggers another permutation
+      (with ZERO input block) to generate the next output block (additional squeeze).
+    - Repeats as many times as squeeze_next is requested.
+
+    Important assumption (matches many Keccak cores):
+    - f_permutation starts a "12 two-round step" run whenever in_ready is asserted.
+    - During squeezing, we can run f_permutation again by asserting in_ready with
+      in = 0 (i.e., XOR 0 into state, no absorb), which is equivalent to "squeeze next".
+
+    If your f_permutation does NOT work with a zero in_ready kick, you must add an
+    explicit squeeze_start input inside f_permutation. But try this first: it is the
+    minimal-change solution and works in many designs.
+
+    Interface additions vs your module:
+    - input  squeeze_next : request next squeezed block (acknowledges current out)
+    - output reg out_valid : asserted when 'out' is a valid block; deasserts when new
+      permutation run is started, then re-asserts after it completes.
+
+    Notes:
+    - out_valid is a level signal (stays 1 while output is available).
+    - buffer_full stays as provided by padder (only meaningful during absorb).
+*/
+
+/* "is_last" == 0 means byte number is 8, no matter what value "byte_num" is. */
+/* if "in_ready" == 0, then "is_last" should be 0. */
+/* the user switch to next "in" only if "ack" == 1. */
+
+`define low_pos(w,b)      ((w)*64 + (b)*8)
+`define low_pos2(w,b)     `low_pos(w,7-b)
+`define high_pos(w,b)     (`low_pos(w,b) + 7)
+`define high_pos2(w,b)    (`low_pos2(w,b) + 7)
+
+module keccak_xof #(
+    // SHA3-512: RATE_BITS=576,  SUFFIX=8'h06
+    // SHAKE256: RATE_BITS=1088, SUFFIX=8'h1F
+    // SHAKE128: RATE_BITS=1344, SUFFIX=8'h1F
+    parameter integer RATE_BITS    = 576,
+    parameter [7:0]   SUFFIX       = 8'h01,
+    parameter integer OUTPUT_SIZE  = 256
+)(
+    input                   clk,
+    input                   reset,
+
+    // Absorb interface (same as your original)
+    input      [63:0]       in,
+    input                   in_ready,
+    input                   is_last,
+    input      [2:0]        byte_num,
+    output                  buffer_full,
+
+    // Squeeze control (NEW)
+    input                   squeeze_next,   // request next output block after out_valid=1
+
+    // Output
+    output     [OUTPUT_SIZE-1:0] out,
+    output reg              out_valid
+);
+
+    // -----------------------------
+    // Internal signals
+    // -----------------------------
+    wire [RATE_BITS-1:0] padder_out, padder_out_1;
+    wire                 padder_out_ready;
+    wire                 f_ack;
+    wire [1599:0]         f_out;
+    wire                 f_out_ready;
+    wire [OUTPUT_SIZE-1:0] out1;
+
+    reg  [10:0]          i;          // 11-bit shift to count 12 "two-round steps"
+    reg  [1:0]           st;
+
+    localparam [1:0] ST_ABSORB   = 2'd0;
+    localparam [1:0] ST_PERMUTE  = 2'd1;  // first permutation after last input
+    localparam [1:0] ST_HAVE_OUT = 2'd2;  // out_valid=1, wait for squeeze_next
+    localparam [1:0] ST_SQUEEZE  = 2'd3;  // permutation for additional squeeze
+
+    // Take top OUTPUT_SIZE bits from f_out (same as your original)
+    assign out1 = f_out[1599:1599-(OUTPUT_SIZE-1)];
+
+    // -----------------------------------------
+    // Byte reordering for output and padder_out
+    // -----------------------------------------
+    genvar w, b;
+
+    generate
+      for (w = 0; w < (OUTPUT_SIZE/64); w = w + 1) begin : L0
+        for (b = 0; b < 8; b = b + 1) begin : L1
+          assign out[`high_pos(w,b):`low_pos(w,b)] =
+                 out1[`high_pos2(w,b):`low_pos2(w,b)];
+        end
+      end
+    endgenerate
+
+    generate
+      for (w = 0; w < (RATE_BITS/64); w = w + 1) begin : L2
+        for (b = 0; b < 8; b = b + 1) begin : L3
+          assign padder_out[`high_pos(w,b):`low_pos(w,b)] =
+                 padder_out_1[`high_pos2(w,b):`low_pos2(w,b)];
+        end
+      end
+    endgenerate
+
+    // -----------------------------------------
+    // Permutation kick logic
+    // -----------------------------------------
+    // We drive f_permutation.in_ready from either:
+    // - padder_out_ready during absorb, OR
+    // - a one-cycle squeeze_pulse to request another permutation (no absorb)
+    reg  sq_d;
+    wire squeeze_pulse;
+
+    always @(posedge clk) begin
+      if (reset) sq_d <= 1'b0;
+      else       sq_d <= (st == ST_SQUEEZE);
+    end
+
+    // Pulse when entering ST_SQUEEZE
+    assign squeeze_pulse = (st == ST_SQUEEZE) & ~sq_d;
+
+    // Select input to permutation:
+    // - when absorbing, use padder_out
+    // - when squeezing, use all-zeros (XOR 0 into state)
+    wire [RATE_BITS-1:0] perm_in;
+    wire                 perm_in_ready;
+
+    assign perm_in       = padder_out_ready ? padder_out : {RATE_BITS{1'b0}};
+    assign perm_in_ready = padder_out_ready | squeeze_pulse;
+
+    // -----------------------------------------
+    // Count 12 steps using f_ack (your style)
+    // -----------------------------------------
+    wire perm_running = (st == ST_PERMUTE) | (st == ST_SQUEEZE);
+
+    always @(posedge clk) begin
+      if (reset) i <= 11'd0;
+      else       i <= {i[9:0], (perm_running & f_ack)};
+    end
+
+    // -----------------------------------------
+    // Main control FSM
+    // -----------------------------------------
+    always @(posedge clk) begin
+      if (reset) begin
+        st        <= ST_ABSORB;
+        out_valid <= 1'b0;
+      end else begin
+        case (st)
+          ST_ABSORB: begin
+            out_valid <= 1'b0;
+            // When last input chunk is marked, we move to the first permute phase.
+            // padder will still emit padder_out_ready to start permutation.
+            if (is_last) begin
+              st <= ST_PERMUTE;
+            end
+          end
+
+          ST_PERMUTE: begin
+            // Wait until permutation finishes (12 two-round steps)
+            if (i[10]) begin
+              out_valid <= 1'b1;
+              st        <= ST_HAVE_OUT;
+            end
+          end
+
+          ST_HAVE_OUT: begin
+            // Hold output valid until user requests the next block
+            if (squeeze_next) begin
+              out_valid <= 1'b0;
+              st        <= ST_SQUEEZE;
+            end
+          end
+
+          ST_SQUEEZE: begin
+            // On entry, squeeze_pulse triggers another permutation run with zero input
+            // Wait until done, then make output valid again
+            if (i[10]) begin
+              out_valid <= 1'b1;
+              st        <= ST_HAVE_OUT;
+            end
+          end
+
+          default: begin
+            st        <= ST_ABSORB;
+            out_valid <= 1'b0;
+          end
+        endcase
+      end
+    end
+
+    // -----------------------------------------
+    // Padder instance (unchanged)
+    // -----------------------------------------
+    padder_fast_2 #(
+      .RATE_BITS(RATE_BITS),
+      .SUFFIX   (SUFFIX)
+    ) padder_ (
+      .clk(clk), .reset(reset),
+      .in(in), .in_ready(in_ready), .is_last(is_last), .byte_num(byte_num),
+      .buffer_full(buffer_full),
+      .out(padder_out_1), .out_ready(padder_out_ready),
+      .f_ack(f_ack)
+    );
+
+    // -----------------------------------------
+    // Permutation instance (same module, new driving signals)
+    // -----------------------------------------
+    f_permutation #(
+      .RATE_BITS(RATE_BITS)
+    ) f_permutation_ (
+      .clk(clk), .reset(reset),
+      .in(perm_in), .in_ready(perm_in_ready),
+      .ack(f_ack),
+      .out(f_out), .out_ready(f_out_ready)
+    );
+
+endmodule
+
+`undef low_pos
+`undef low_pos2
+`undef high_pos
+`undef high_pos2

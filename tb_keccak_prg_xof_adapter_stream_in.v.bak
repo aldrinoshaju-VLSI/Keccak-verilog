@@ -1,0 +1,235 @@
+`timescale 1ns/1ps
+// -----------------------------------------------------------------------------
+// Testbench: keccak_prg_xof_adapter_stream_in
+// -----------------------------------------------------------------------------
+// What this TB verifies:
+// 1) Feeds an input message into keccak_xof through the adapter's absorb ports
+//    (in/in_ready/is_last/byte_num), using the same style as your keccak test.
+// 2) After absorption, the adapter produces a stream of 9-bit samples when we
+//    assert ready=1.
+// 3) We collect many samples (default 200) to force at least one squeeze when
+//    KECCAK_BLOCK_BITS=1088 (1088/9=120 samples per block). For 200 samples,
+//    it MUST squeeze at least once.
+// 4) Prints {sign,index} per sample and reports if exhausted is asserted early.
+//
+// Notes:
+// - This TB is "normal" (simple) and uses bounded for-loops (no unbounded while).
+// - It does not compare to golden values (SHAKE output depends on implementation).
+// - You must compile keccak_xof + its submodules (padder_fast_2, f_permutation, ...).
+// -----------------------------------------------------------------------------
+
+module tb_keccak_prg_xof_adapter_stream_in;
+
+    // ---- Parameters ----
+    localparam integer RATE_BITS         = 1088;
+    localparam [7:0]   SUFFIX            = 8'h1F;
+    localparam integer KECCAK_BLOCK_BITS = 1088;  // one squeeze block from keccak_xof
+    localparam integer MAX_SQUEEZE_BLOCKS= 0;     // unlimited
+
+    localparam integer CLK_HALF = 5;   // 100 MHz
+    localparam integer SAMPLES_TO_GET = 200; // >120 to force squeeze at least once
+
+    // ---- Clk / reset ----
+    reg clk;
+    reg rst_n;
+
+    // ---- Adapter control ----
+    reg start;
+
+    // ---- Keccak absorb interface (to adapter) ----
+    reg  [63:0] in_word;
+    reg         in_ready;
+    reg         is_last;
+    reg  [2:0]  byte_num;
+    wire        buffer_full;
+
+    // ---- PRG interface (from adapter) ----
+    reg         ready;
+    wire        valid;
+    wire [8:0]  prg_bits;
+    wire        exhausted;
+    wire [15:0] sample_count;
+
+    // DUT
+    keccak_prg_xof_adapter_stream_in #(
+        .RATE_BITS(RATE_BITS),
+        .SUFFIX(SUFFIX),
+        .KECCAK_BLOCK_BITS(KECCAK_BLOCK_BITS),
+        .MAX_SQUEEZE_BLOCKS(MAX_SQUEEZE_BLOCKS)
+    ) dut (
+        .clk(clk),
+        .rst_n(rst_n),
+
+        .start(start),
+
+        .in(in_word),
+        .in_ready(in_ready),
+        .is_last(is_last),
+        .byte_num(byte_num),
+        .buffer_full(buffer_full),
+
+        .ready(ready),
+        .valid(valid),
+        .prg_bits(prg_bits),
+
+        .exhausted(exhausted),
+        .sample_count(sample_count)
+    );
+
+    // Clock
+    initial clk = 1'b0;
+    always #CLK_HALF clk = ~clk;
+
+    // -------------------------------------------------------------------------
+    // Helper task: absorb an ASCII string (same approach as your keccak TB)
+    // - Packs bytes into 64-bit words, drives in_ready for 1 cycle per word.
+    // - is_last asserted on final word.
+    // - byte_num indicates how many bytes are valid in final word:
+    //   This follows your keccak TB's logic: byte_num = 9 + byte_index (when byte_index < -1)
+    // -------------------------------------------------------------------------
+    task absorb_string;
+        input [16*512-1:0] input_data;
+        input integer      bytes_count;
+
+        integer block_index;
+        integer blocks_count;
+        integer byte_index;
+        integer block_byte_index;
+        integer tmp;
+    begin
+        // Initialize interface
+        in_word   = 64'd0;
+        in_ready  = 1'b0;
+        is_last   = 1'b0;
+        byte_num  = 3'd0;
+
+        // How many 64-bit words to send
+        blocks_count = (bytes_count/8) + 1;
+
+        byte_index = bytes_count - 1;
+
+        for (block_index = blocks_count - 1; block_index >= 0; block_index = block_index - 1) begin
+            // Wait for keccak/padder buffer availability
+            // Bounded wait to avoid tool complaints
+            integer w;
+            for (w = 0; w < 5000; w = w + 1) begin
+                @(posedge clk);
+                if (!buffer_full) disable WAIT_BF;
+            end
+            $display("ERROR: timeout waiting buffer_full deassert");
+            $finish;
+            WAIT_BF: ;
+
+            // Fill 64-bit word, bytes [7:0]..[0]
+            tmp = byte_index;
+            for (block_byte_index = 7; block_byte_index >= 0; block_byte_index = block_byte_index - 1) begin
+                if (tmp >= 0) begin
+                    in_word[block_byte_index*8 +: 8] = input_data[tmp*8 +: 8];
+                end else begin
+                    in_word[block_byte_index*8 +: 8] = 8'h00;
+                end
+                tmp = tmp - 1;
+            end
+            byte_index = byte_index - 8;
+
+            // Drive handshake for 1 cycle
+            in_ready = 1'b1;
+
+            // Determine last
+            if (byte_index < -1) begin
+                is_last = 1'b1;
+                // Same rule as your TB:
+                // after subtracting 8, byte_index is negative; set byte_num = 9 + byte_index
+                // (byte_num is 3 bits; it should match your padder's expected convention)
+                byte_num = (9 + byte_index); // byte_index is negative here
+            end else begin
+                is_last = 1'b0;
+                byte_num = 3'd0;
+            end
+
+            @(posedge clk);
+            in_ready = 1'b0;
+            is_last  = 1'b0;
+            byte_num = 3'd0;
+        end
+    end
+    endtask
+
+    // -------------------------------------------------------------------------
+    // Reset + run
+    // -------------------------------------------------------------------------
+    integer s;
+    integer got;
+
+    initial begin
+        // init
+        rst_n = 1'b0;
+        start = 1'b0;
+
+        in_word  = 64'd0;
+        in_ready = 1'b0;
+        is_last  = 1'b0;
+        byte_num = 3'd0;
+
+        ready = 1'b0;
+
+        // reset
+        repeat (5) @(posedge clk);
+        rst_n = 1'b1;
+
+        // start
+        repeat (2) @(posedge clk);
+        start = 1'b1;
+
+        // Absorb a small message (example: "a")
+        // You can change to "abcdefg" etc.
+        absorb_string("a", 1);
+
+        // Now request samples
+        ready = 1'b1;
+
+        got = 0;
+        $display("==================================================");
+        $display("Collecting %0d samples from adapter (expect squeeze if >120)", SAMPLES_TO_GET);
+        $display("Format: sample#, sign, index, raw");
+        $display("==================================================");
+
+        // Bounded loop to collect SAMPLES_TO_GET valid samples
+        for (s = 0; s < 500000; s = s + 1) begin
+            @(posedge clk);
+
+            if (exhausted) begin
+                $display("ERROR: exhausted asserted early at time %0t, got=%0d samples", $time, got);
+                $finish;
+            end
+
+            if (valid) begin
+                $display("sample=%0d  sign=%0d  index=%0d (0x%02h)  raw=%b  sample_count=%0d",
+                         got,
+                         prg_bits[8],
+                         prg_bits[7:0],
+                         prg_bits[7:0],
+                         prg_bits,
+                         sample_count);
+                got = got + 1;
+                if (got == SAMPLES_TO_GET) disable DONE;
+            end
+        end
+
+        $display("ERROR: timeout collecting samples (got=%0d)", got);
+        $finish;
+
+        DONE: ;
+        $display("--------------------------------------------------");
+        $display("PASS: collected %0d samples; sample_count=%0d", got, sample_count);
+        $display("NOTE: if got>120, squeeze was necessarily exercised.");
+        $display("--------------------------------------------------");
+
+        // stop driving start
+        start = 1'b0;
+
+        #100;
+        $finish;
+    end
+
+endmodule
