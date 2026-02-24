@@ -1,2 +1,0 @@
-Warning (10268): Verilog HDL information at padder_fast.v(88): always construct contains both blocking and non-blocking assignments File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/padder_fast.v Line: 88
-Info (10281): Verilog HDL Declaration information at padder_fast_2.v(55): object "pack" differs only in case from object "PACK" in the same scope File: C:/Users/aldri/OneDrive/Documents/RBL/quartus_workspace/g5/padder_fast_2.v Line: 55
