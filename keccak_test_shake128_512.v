@@ -14,8 +14,8 @@ module keccak_test_shake128_512;
     // Keep defaults for SHA3-512. For SHAKE, set as below:
     //   SHAKE256: RATE_BITS=1088, SUFFIX=8'h1F, DO_COMPARE=0 (unless you change vectors)
     //   SHAKE128: RATE_BITS=1344, SUFFIX=8'h1F, DO_COMPARE=0 (unless you change vectors)
-    localparam integer RATE_BITS  = 1344;   // 576 (SHA3-512), 1088 (SHAKE256), 1344 (SHAKE128)
-    localparam [7:0]   SUFFIX     = 8'h1F; // 8'h06 (SHA3), 8'h1F (SHAKE)
+    localparam integer RATE_BITS  = 576;   // 576 (SHA3-512), 1088 (SHAKE256), 1344 (SHAKE128)
+    localparam [7:0]   SUFFIX     = 8'h06; // 8'h06 (SHA3), 8'h1F (SHAKE)
     localparam integer DO_COMPARE = 1'b0;  // set 0 for SHAKE unless you replace expected digests
     // ---------------------------------------------------------------------
 

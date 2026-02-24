@@ -14,7 +14,7 @@ module keccak #(
     // SHAKE128: RATE_BITS=1344, SUFFIX=8'h1F
     parameter integer RATE_BITS = 576,
     parameter [7:0]   SUFFIX    = 8'h01,
-	 parameter integer OUTPUT_SIZE = 256
+	 parameter integer OUTPUT_SIZE = 512
 )(
     input              clk, reset,
     input      [63:0]  in,
